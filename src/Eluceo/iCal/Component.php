@@ -54,6 +54,7 @@ abstract class Component
         foreach ($lines as $key => $line) {
             $lines[$key] = $this->fold($line);
         }
+        $lines = explode("\r\n", implode("\r\n", $lines));
 
         return $lines;
     }
@@ -65,7 +66,8 @@ abstract class Component
     public function fold($string)
     {
         $lines = array();
-        $array = preg_split('/(?<!^)(?!$)/u', $string);
+        $string = trim($string, "\r\n");
+        $array = preg_split('/(?<!^|\\\\)(?!$)/u', $string);
 
         $line   = '';
         $lineNo = 0;
@@ -91,12 +93,7 @@ abstract class Component
      */
     public function render()
     {
-        $lines = array();
-        foreach ($this->build() as $l) {
-            $lines[] = $l;
-        }
-
-        return implode("\r\n", $lines);
+        return implode("\r\n", $this->build());
     }
 
     /**

@@ -45,11 +45,7 @@ class Property
         // Property-name
         $line = $this->getName();
         $value = $this->value;
-        if (false !== strpos($value, "\n")) {
-            $this->params['ENCODING'] = 'QUOTED-PRINTABLE';
-            $value = quoted_printable_encode($value);
-            $value = strtr($value, array ("\r" => "", "\n" => ""));
-        }
+        $value = strtr($value, array ("\r" => '', '\\' => '\\\\', "\n" => '\n', ';' => '\;', ',' => '\,'));
 
         // Adding params
         foreach ($this->params as $param => $paramValues) {
