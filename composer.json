@@ -19,6 +19,7 @@
             "Eluceo\\iCal":"src/"
         }
     },
+    "version":"1.0.0",
     "target-dir":"",
     "require":{
         "php":">=5.3.0"
